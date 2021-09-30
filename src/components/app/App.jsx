@@ -66,7 +66,7 @@ function App() {
   // const { current, undo, redo, record } = useRecord('#FF0000');
 
   const [state, dispatch] = useReducer(appReducer, initialValue);
-  const color = initialValue.current;
+  const { current } = state;
 
   const record = ({ target }) => {
     dispatch({
@@ -86,7 +86,7 @@ function App() {
       type: 'redo'
     });
   };
-  console.log(color);
+  console.log(current);
 
   return (
     <>
@@ -103,12 +103,12 @@ function App() {
       <input 
         aria-label="color-picker" 
         type="color" 
-        value={color} 
+        value={current} 
         onChange={record} />
       <div 
         aria-label="display" 
         style={{ 
-          backgroundColor: color, width: '10rem', height: '10rem' 
+          backgroundColor: current, width: '10rem', height: '10rem' 
         }}></div>
     </>
   );
