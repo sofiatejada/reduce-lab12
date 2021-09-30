@@ -66,7 +66,7 @@ function App() {
   // const { current, undo, redo, record } = useRecord('#FF0000');
 
   const [state, dispatch] = useReducer(appReducer, initialValue);
-  const color = initialValue.current = state;
+  const color = initialValue.current;
 
   const record = ({ target }) => {
     dispatch({
