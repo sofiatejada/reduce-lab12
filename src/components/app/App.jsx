@@ -1,47 +1,72 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 
-const useRecord = (init) => {
-  const [before, setBefore] = useState([]);
-  const [current, setCurrent] = useState(init);
-  const [after, setAfter] = useState([]);
-
-  const undo = () => {
-    setAfter(after => [current, ...after]);
-    setCurrent(before[before.length - 1]);
-    setBefore(before => before.slice(0, -1));
-  };
-
-  const redo = () => {
-    setBefore(before => [...before, current]);
-    setCurrent(after[0]);
-    setAfter(after => after.slice(1));
-  };
-
-  const record = val => {
-    setBefore(before => [...before, current]);
-    setCurrent(val);
-  };
-
-  return {
-    undo,
-    record,
-    redo,
-    current,
-  };
+const initialValue = {
+  before: [],
+  current: '#FF0000',
+  after: [],
 };
 
+
+
+const appReducer = (state, action) => {
+  switch (action.type) {
+    case 'redo':
+      return {};
+  }
+};
+
+// const useRecord = (init) => {
+//   const [before, setBefore] = useState([]);
+//   const [current, setCurrent] = useState(init);
+//   const [after, setAfter] = useState([]);
+
+//   const undo = () => {
+//     setAfter(after => [current, ...after]);
+//     setCurrent(before[before.length - 1]);
+//     setBefore(before => before.slice(0, -1));
+//   };
+
+//   const redo = () => {
+//     setBefore(before => [...before, current]);
+//     setCurrent(after[0]);
+//     setAfter(after => after.slice(1));
+//   };
+
+//   const record = val => {
+//     setBefore(before => [...before, current]);
+//     setCurrent(val);
+//   };
+
+//   return {
+//     undo,
+//     record,
+//     redo,
+//     current,
+//   };
+// };
+
 function App() {
-  const { current, undo, redo, record } = useRecord('#FF0000');
+  // const { current, undo, redo, record } = useRecord('#FF0000');
+
+  const [state, dispatch] = useReducer(appReducer, initialValue);
 
   return (
     <>
-      <button aria-label="undo-button" onClick={undo}>undo</button>
-      <button aria-label="redo-button" onClick={redo}>redo</button>
+      <button 
+        aria-label="undo-button" 
+        onClick={dispatch({ type: 'undo', payload: 1 })}>
+          undo
+      </button>
+      <button 
+        aria-label="redo-button" 
+        onClick={dispatch({ type: 'redo', payload: 1 })}>
+          redo
+      </button>
       <input 
         aria-label="color-picker" 
         type="color" 
-        value={current} 
-        onChange={({ target }) => record(target.value)} />
+        value={state} 
+        onChange={} />
       <div 
         aria-label="display" 
         style={{ 
