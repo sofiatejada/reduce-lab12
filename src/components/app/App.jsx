@@ -20,8 +20,14 @@ const appReducer = (state, action) => {
     case 'undo':
       return {
         after: [current, ...after],
-        current: [before.length - 1],
+        current: before[before.length - 1],
         before: before.slice(0, -1),
+      };
+    case 'record':
+      return {
+        ...state,
+        before: [...before, current],
+        current: action.payload,
       };
   }
 };
@@ -96,7 +102,7 @@ function App() {
       <input 
         aria-label="color-picker" 
         type="color" 
-        value={state} 
+        value={initialValue.current} 
         onChange={record} />
       <div 
         aria-label="display" 
