@@ -49,28 +49,48 @@ function App() {
   // const { current, undo, redo, record } = useRecord('#FF0000');
 
   const [state, dispatch] = useReducer(appReducer, initialValue);
+  initialValue.current = state;
+
+  const record = ({ target }) => {
+    dispatch({
+      type: 'undo',
+      payload: target.value,
+    });
+  };
+
+  const undo = () => {
+    dispatch({
+      type: 'undo'
+    });
+  };
+
+  const redo = () => {
+    dispatch({
+      type: 'redo'
+    });
+  };
 
   return (
     <>
       <button 
         aria-label="undo-button" 
-        onClick={dispatch({ type: 'undo', payload: 1 })}>
+        onClick={undo}>
           undo
       </button>
       <button 
         aria-label="redo-button" 
-        onClick={dispatch({ type: 'redo', payload: 1 })}>
+        onClick={redo}>
           redo
       </button>
       <input 
         aria-label="color-picker" 
         type="color" 
         value={state} 
-        onChange={} />
+        onChange={record} />
       <div 
         aria-label="display" 
         style={{ 
-          backgroundColor: current, width: '10rem', height: '10rem' 
+          backgroundColor: state, width: '10rem', height: '10rem' 
         }}></div>
     </>
   );
