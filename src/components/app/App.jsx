@@ -108,7 +108,7 @@ function App() {
       <div 
         aria-label="display" 
         style={{ 
-          backgroundColor: state, width: '10rem', height: '10rem' 
+          backgroundColor: color, width: '10rem', height: '10rem' 
         }}></div>
     </>
   );
