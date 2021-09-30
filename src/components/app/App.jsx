@@ -9,9 +9,20 @@ const initialValue = {
 
 
 const appReducer = (state, action) => {
+  const { before, current, after } = state;
   switch (action.type) {
     case 'redo':
-      return {};
+      return {
+        before: [...before, current],
+        current: after[0],
+        after: after.slice(1),
+      };
+    case 'undo':
+      return {
+        after: [current, ...after],
+        current: [before.length - 1],
+        before: before.slice(0, -1),
+      };
   }
 };
 
