@@ -70,7 +70,7 @@ function App() {
 
   const record = ({ target }) => {
     dispatch({
-      type: 'undo',
+      type: 'record',
       payload: target.value,
     });
   };
